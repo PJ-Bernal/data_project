@@ -9,7 +9,7 @@
   <ul>
     <% @monsters.each do |monster| %>
       <li>
-        <%= monster.name %>
+        <%= link_to monster['name'], monster_path(monster['name']) %>
       </li>
     <% end %>
   </ul>

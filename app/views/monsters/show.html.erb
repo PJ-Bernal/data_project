@@ -1,0 +1,21 @@
+<div>
+  <h1 class="font-bold text-4xl">Monsters#index</h1>
+  <p>Find me in app/views/monsters/index.html.erb</p>
+</div>
+
+<h1><%= @monster.name %></h1>
+
+<p><%= @monster.description %></p>
+
+<p><%= @monster.size %></p>
+
+<p><%= @monster.species %></p>
+
+<h2>Locations</h2>
+<ul>
+  <% @monster.locations.each do |location| %>
+    <li><%= location.name %> (Zone Count: <%= location.zoneCount %>)</li>
+  <% end %>
+</ul>
+
+<%= link_to 'Back to Monsters List', root_path %>
