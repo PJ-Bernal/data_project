@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'ailments/index'
   root 'monsters#index'
 
   get '/index', to: 'monsters#index'
