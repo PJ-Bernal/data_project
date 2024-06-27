@@ -17,31 +17,46 @@ def fetch_data(endpoint)
   JSON.parse(response.body)
 end
 
+# # Fetch and create monsters
+# monsters_data = fetch_data('monsters')
+# monsters_data.each do |monster|
+#   Monster.create(
+#     name: monster['name'],
+#     size: monster['type'],
+#     species: monster['species'],
+#     description: monster['description']
+#   )
+# end
+
 # Fetch and create monsters
-monsters_data = fetch_data('monsters')
-monsters_data.each do |monster|
-  Monster.create(
-    name: monster['name'],
-    size: monster['type'],
-    species: monster['species'],
-    description: monster['description']
-  )
-end
+# monsters_data = fetch_data('monsters')
+# monsters_data.each do |monster|
+#   Monster.create(
+#     name: monster['name'],
+#     size: monster['type'],
+#     species: monster['species'],
+#     description: monster['description'],
+#     monster_id: monster['id'],
+#   )
+# end
 
 # Fetch and create locations
 locations_data = fetch_data('locations')
 locations_data.each do |location|
   Location.create(
     name: location['name'],
-    zoneCount: location['zoneCount']
+    zoneCount: location['zoneCount'],
+    location_id: location['id'],
   )
 end
 
-# Fetch and create ailments
-ailments_data = fetch_data('ailments')
-ailments_data.each do |ailment|
-  Ailment.create(
-    name: ailment['name'],
-    description: ailment['description']
-  )
-end
+# # Fetch and create ailments
+# ailments_data = fetch_data('ailments')
+# ailments_data.each do |ailment|
+#   Ailment.create(
+#     name: ailment['name'],
+#     description: ailment['description']
+#   )
+# end
+
+

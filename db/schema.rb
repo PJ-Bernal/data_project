@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_26_163808) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_27_192621) do
   create_table "ailments", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -23,6 +23,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_163808) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "location_id"
   end
 
   create_table "monsters", force: :cascade do |t|
@@ -32,6 +33,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_163808) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "monster_id"
   end
 
   create_table "monsters_ailments", force: :cascade do |t|
