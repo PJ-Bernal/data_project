@@ -69,3 +69,5 @@ end
 gem "tailwindcss-rails", "~> 2.6"
 
 gem 'kaminari', '~> 1.2', '>= 1.2.2'
+
+gem 'httparty'

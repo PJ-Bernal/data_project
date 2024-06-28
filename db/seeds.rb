@@ -1,62 +1,49 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+require 'httparty'
 
-require 'net/http'
-require 'json'
+# Fetch data from APIs
+monsters_response = HTTParty.get('https://mhw-db.com/monsters')
+locations_response = HTTParty.get('https://mhw-db.com/locations')
 
-def fetch_data(endpoint)
-  url = URI.parse("https://mhw-db.com/#{endpoint}")
-  response = Net::HTTP.get_response(url)
-  JSON.parse(response.body)
-end
+monsters_data = JSON.parse(monsters_response.body)
+locations_data = JSON.parse(locations_response.body)
 
-# # Fetch and create monsters
-# monsters_data = fetch_data('monsters')
-# monsters_data.each do |monster|
-#   Monster.create(
-#     name: monster['name'],
-#     size: monster['type'],
-#     species: monster['species'],
-#     description: monster['description']
-#   )
-# end
+# Clear existing data
+MonstersLocation.delete_all
+Monster.delete_all
+Location.delete_all
 
-# Fetch and create monsters
-# monsters_data = fetch_data('monsters')
-# monsters_data.each do |monster|
-#   Monster.create(
-#     name: monster['name'],
-#     size: monster['type'],
-#     species: monster['species'],
-#     description: monster['description'],
-#     monster_id: monster['id'],
-#   )
-# end
 
-# Fetch and create locations
-locations_data = fetch_data('locations')
-locations_data.each do |location|
-  Location.create(
-    name: location['name'],
-    zoneCount: location['zoneCount'],
-    location_id: location['id'],
+# Populate locations table
+locations_data.each do |location_data|
+  Location.create!(
+    id: location_data['id'],
+    name: location_data['name'],
+    zoneCount: location_data['zoneCount']
   )
 end
 
-# # Fetch and create ailments
-# ailments_data = fetch_data('ailments')
-# ailments_data.each do |ailment|
-#   Ailment.create(
-#     name: ailment['name'],
-#     description: ailment['description']
-#   )
-# end
+# Populate monsters table and monsters_locations join table
+monsters_data.each do |monster_data|
+    Monster.create!(
+      id: monster_data['id'],
+      name: monster_data['name'],
+      size: monster_data['type'],
+      species: monster_data['species'],
+      description: monster_data['description'],
+    )
+end
+  
+  # Populate monsters_locations join table
+monsters_data.each do |monster_data|
+  monster = Monster.find(monster_data['id'])
+  
+  monster_data['locations'].each do |location_data|
+    MonstersLocation.create!(
+      monster_id: monster['id'],
+      location_id: location_data['id'],
+      )
+  end
+end
+  
 
-
+puts "Database successfully seeded!"
