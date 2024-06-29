@@ -4,10 +4,14 @@ Rails.application.routes.draw do
   get '/monsters', to: 'monsters#index'
 
   # Map the default id of the monster, to the monster's name to map the view using the name, not the id
-  resources :monsters, param: :name, only: [:index, :show]
+
   get '/monsters/:name', to: 'monsters#show'
 
   get '/locations', to: 'locations#index'
+
+  # Map the default id of the monster, to the monster's name to map the view using the name, not the id
+  
+  get '/locations/:name', to: 'locations#show'
 
   get '/ailments', to: 'ailments#index'
 
