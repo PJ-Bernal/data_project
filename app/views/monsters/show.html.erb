@@ -3,18 +3,25 @@
   <p>Find me in app/views/monsters/index.html.erb</p>
 </div>
 
-<h1><%= @monster.name %></h1>
+<h1>Monster name: <%= @monster.name %></h1>
 
-<p><%= @monster.description %></p>
+<p>Monster description: <%= @monster.description %></p>
 
-<p><%= @monster.size %></p>
+<p>Monster size: <%= @monster.size %></p>
 
-<p><%= @monster.species %></p>
+<p>Monster species<%= @monster.species %></p>
 
 <h2>Locations</h2>
 <ul>
   <% @monster.locations.each do |location| %>
     <li><%= location.name %> (Zone Count: <%= location.zoneCount %>)</li>
+  <% end %>
+</ul>
+
+<h2>Ailments</h2>
+<ul>
+  <% @monster.ailments.each do |ailment| %>
+    <li><%= ailment.name %> (Description: <%= ailment.description %>)</li>
   <% end %>
 </ul>
 

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   get '/monsters', to: 'monsters#index'
 
-  # Map the default id of the monster, to the monster's name 
+  # Map the default id of the monster, to the monster's name to map the view using the name, not the id
   resources :monsters, param: :name, only: [:index, :show]
   get '/monsters/:name', to: 'monsters#show'
 
@@ -11,7 +11,18 @@ Rails.application.routes.draw do
 
   get '/ailments', to: 'ailments#index'
 
+  # Resources to provide a Restful path
+  resources :monsters do
+    get '/page/:page', action: :index, on: :collection
+  end
 
+  resources :locations do
+    get '/page/:page', action: :index, on: :collection
+  end
+
+  resources :ailments do
+    get '/page/:page', action: :index, on: :collection
+  end
 
 
 
