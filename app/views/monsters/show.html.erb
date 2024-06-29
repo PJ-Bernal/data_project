@@ -11,17 +11,22 @@
 
 <p>Monster species<%= @monster.species %></p>
 
-<h2>Locations</h2>
+<h2><%= link_to 'Locations', locations_path %></h2>
+
 <ul>
   <% @monster.locations.each do |location| %>
     <li><%= location.name %> (Zone Count: <%= location.zoneCount %>)</li>
   <% end %>
 </ul>
 
-<h2>Ailments</h2>
+<h2><%= link_to 'Ailments', ailments_path%>Ailment</h2>
 <ul>
-  <% @monster.ailments.each do |ailment| %>
-    <li><%= ailment.name %> (Description: <%= ailment.description %>)</li>
+  <% if @monster.ailments.empty? %>
+    <li>The monster doesn't have an ailment</li>
+  <% else %>
+    <% @monster.ailments.each do |ailment| %>
+      <li><%= ailment.name %> (Description: <%= ailment.description %>)</li>
+    <% end %>
   <% end %>
 </ul>
 
