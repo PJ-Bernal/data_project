@@ -9,8 +9,10 @@
   <ul>
     <% @ailments.each do |ailment| %>
       <li>
-        <%= ailment.name %>
+        <%= link_to ailment['name'], ailment_path(ailment['name']) %>
       </li>
     <% end %>
   </ul>
 </div>
+
+<%= link_to 'Back to Monsters List', root_path %>
